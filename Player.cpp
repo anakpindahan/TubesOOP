@@ -3,7 +3,7 @@
 using namespace std;
 
 Player::Player(){
-	coordinate = Cell(0, 0, "Grass");
+	coordinate = Cell(0, 0, "Grass", "Player");
 }
 
 Player::Player(const Player& p){
@@ -25,4 +25,9 @@ Cell Player::getCoordinate(){
 
 void Player::setCoordinate(Cell c){
 	coordinate = c;
+}
+
+void Player::setCoordinate(int _X, int _Y){
+	coordinate.setX(_X);
+	coordinate.setY(_Y);
 }

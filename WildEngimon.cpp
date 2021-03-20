@@ -4,7 +4,7 @@ using namespace std;
 
 WildEngimon::WildEngimon(){
 	id = 0;
-	coordinate = Cell(5, 6, "Grass");
+	coordinate = Cell(5, 6, "Grass", "WEng");
 	level = 2;
 	xp = 205;
 }
@@ -24,7 +24,11 @@ WildEngimon::WildEngimon(const WildEngimon& we){
 }
 
 WildEngimon& WildEngimon::operator=(const WildEngimon& we){
-	WildEngimon we1 = WildEngimon(we.id, we.coordinate, we.level, we.xp);
+	this->coordinate = we.coordinate;
+	this->id = we.id;
+	this->level = we.level;
+	this->xp = we.xp;
+	return *this;
 }
 
 WildEngimon::~WildEngimon(){

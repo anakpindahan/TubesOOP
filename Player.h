@@ -13,6 +13,7 @@ class Player{
 		~Player();
 		Cell getCoordinate();
 		void setCoordinate(Cell);
+		void setCoordinate(int, int);
 };
 
 #endif

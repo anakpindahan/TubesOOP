@@ -2,27 +2,36 @@
 #define WILD_ENGIMON_H
 
 #include "Cell.hpp"
+#include "Engimon.hpp"
+#include <iostream>
+#include <string>
 
-class WildEngimon{
+#define CAPITAL_LEVEL 4
+
+class WildEngimon : public Engimon{
 	private:
-		int id;
 		Cell coordinate;
-		int level;
-		int xp;
+		int level;			
+		int xp;				
+		int cumulXp;		// Total xp engimon sekarang
 	public:
 		WildEngimon();
-		WildEngimon(int, Cell, int, int);
+		WildEngimon(int, string, string, int, Cell, int, int);
 		WildEngimon(const WildEngimon&);
 		WildEngimon& operator=(const WildEngimon&);
 		~WildEngimon();
-		int getId();
 		Cell getCoordinate();
 		int getLevel();
 		int getXp();
-		void setId(int);
+		int getCumulXp();
 		void setCoordinate(Cell);
+		void setCoordinate(int, int);
 		void setLevel(int);
 		void setXp(int);
+		void xpUp(int);
+		void levelUp(int);			
+		bool isSuitable(Cell);
+		void setSymbolLevel();
 };
 
 #endif

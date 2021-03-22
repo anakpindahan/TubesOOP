@@ -2,7 +2,6 @@
 #define ENGIMON_H
 
 #include "Cell.hpp"
-#include "Skill.hpp"
 
 #define MAX_ELEMENTS 2
 #define MAX_SKILL 4

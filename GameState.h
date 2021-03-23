@@ -6,9 +6,10 @@
 #include "Player.h"
 #include <stdlib.h>
 #include <time.h>
+#include <fstream>
 
-#define MAP_X 20
-#define MAP_Y 20
+#define MAP_BARIS 20
+#define MAP_KOLOM 20
 #define SEA_X 12
 #define SEA_Y 12
 #define MAX_WILD 16				// Banyak engimon liar maksimal dalam satu ronde
@@ -21,14 +22,18 @@ class GameState{
 	private:
 		Engimon listEngimons[ENGIMON_COUNT];		// Katalog engimon
 		Player player;
-		Cell map[MAP_Y][MAP_X];
+		int baris;
+		int kolom;
+		Cell** map;
 		WildEngimon wildEngimons[MAX_WILD];			// Engimon liar yang ada
 		int round;									// Untuk mencatat kapan harus spawn engimn liar lagi
 													// dan mengatur pergerakan engimon liar
 		int wildCount;								// Banyak engimon liar yang ada
 	public:
-		GameState();
+		GameState();								// Membuat map secara acak
+		GameState(string);							// Membuat map berdasarkan masukan pengguna
 		void initEngimon();							// Buat katalog engimon 
+		void readMap(string);								// Membaca masukan peta
 		void showMap();								// Menuliskan posisi pemain dan peta ke layar
 		void movePlayer();							
 		void moveWildEngimons();
@@ -38,6 +43,8 @@ class GameState{
 		bool valid(Cell);							// Mengecek apakah sebuah koordinat valid
 		bool valid(int, int);
 		void regenerateWildEngimons();
+		int searchIdEngimon(WildEngimon);
+		int searchIdEngimon(char);
 };
 
 #endif

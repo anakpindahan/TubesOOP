@@ -31,6 +31,7 @@ class Engimon{
 		void addElements(string);	// Menambahkan elemen dari engimon
 		void setSymbol(); 			// Mengatur simbol dari engimon berdasarkan elemen
 		void setSymbol(char);
+		bool isSameType(Engimon);
 };
 
 #endif

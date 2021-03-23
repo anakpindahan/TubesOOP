@@ -119,3 +119,15 @@ void Engimon::setSymbol(){
 void Engimon::setSymbol(char _symbol){
 	symbol = _symbol;
 }
+
+bool Engimon::isSameType(Engimon e){
+	if(numElements == e.numElements){
+		if(numElements == 1){
+			return(elements[0] == e.elements[0]);
+		} else {
+			return((elements[0] == e.elements[0] && elements[1] == e.elements[1]) || (elements[0] == e.elements[1] && elements[1] == e.elements[0]));
+		}
+	} else{
+		return false;
+	}
+}

@@ -4,6 +4,7 @@
 #include "Cell.hpp"
 #include "WildEngimon.h"
 #include "Player.h"
+#include "Skill.hpp"
 #include <stdlib.h>
 #include <time.h>
 #include <fstream>
@@ -14,6 +15,7 @@
 #define SEA_Y 12
 #define MAX_WILD 16				// Banyak engimon liar maksimal dalam satu ronde
 #define ENGIMON_COUNT 12		// Banyak jenis engimon di katalog
+#define SKILL_COUNT 20			// Banyak jenis Skill di Katalog
 #define MOVE_ROUND 5 			// Lama ronde sampai engimon liar bergerak
 #define SPAWN_ROUND 7 			// Lama ronde sampai menghasilkan memunculkan engimon lia baru
 
@@ -21,6 +23,7 @@
 class GameState{
 	private:
 		Engimon listEngimons[ENGIMON_COUNT];		// Katalog engimon
+		Skill listSkills[SKILL_COUNT];				// Katalog Skill
 		Player player;
 		int baris;
 		int kolom;
@@ -33,6 +36,7 @@ class GameState{
 		GameState();								// Membuat map secara acak
 		GameState(string);							// Membuat map berdasarkan masukan pengguna
 		void initEngimon();							// Buat katalog engimon 
+		void initSkill();							// Buat katalog skill
 		void readMap(string);								// Membaca masukan peta
 		void showMap();								// Menuliskan posisi pemain dan peta ke layar
 		void movePlayer();							

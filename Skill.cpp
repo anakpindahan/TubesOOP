@@ -9,18 +9,18 @@ Skill::Skill(){
     for (int i = 0; i<MaxSkillElements; i++){
     	skillElements[i] = "noElement";
 	}
-    basePower = 0;
-    masteryLevel = 0;
+    basePower = 1;
+    masteryLevel = 1;
 }
 
-Skill::Skill(string nama, string& elements, int BP, int ML){
+Skill::Skill(string nama, int BP, int ML){
     namaSkill = nama;
     basePower = BP;
     masteryLevel = ML;
     
     skillElements = new string[MaxSkillElements];
-    for(int i=0; i<MaxSkillElements; i++){
-    	skillElements[i] = elements[i];
+    for (int i = 0; i<MaxSkillElements; i++){
+    	skillElements[i] = "noElement";
 	}
 }
 

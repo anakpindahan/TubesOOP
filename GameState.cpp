@@ -148,6 +148,76 @@ void GameState::initEngimon() {
 	listEngimons[11].addElements("Ground");
 }
 
+void GameState::initSkill(){
+	listSkills[0] = Skill("FireBall", 200, 1);
+	listSkills[0].addSkillElements("Fire");
+	
+	listSkills[1] = Skill("WaterCannon", 190, 1);
+	listSkills[1].addSkillElements("Water");
+	
+	listSkills[2] = Skill("SnowBall", 250, 1);
+	listSkills[2].addSkillElements("Ice");
+	
+	listSkills[3] = Skill("Kirin", 300, 1);
+	listSkills[3].addSkillElements("Electric");
+	
+	listSkills[4] = Skill("Tampar", 100, 1);
+	listSkills[4].addSkillElements("Fire");
+	listSkills[4].addSkillElements("Ground");
+	listSkills[4].addSkillElements("Water");
+	listSkills[4].addSkillElements("Electric");
+	listSkills[4].addSkillElements("Ice");
+	
+	listSkills[12] = Skill("Jitak", 120, 1);
+	listSkills[12].addSkillElements("Fire");
+	listSkills[12].addSkillElements("Ground");
+	listSkills[12].addSkillElements("Water");
+	listSkills[12].addSkillElements("Electric");
+	listSkills[12].addSkillElements("Ice");
+	
+	listSkills[13] = Skill("Terbang", 120, 1);
+	listSkills[13].addSkillElements("Fire");
+	listSkills[13].addSkillElements("Water");
+	listSkills[13].addSkillElements("Electric");
+	
+	listSkills[5] = Skill("TanahTinggi", 220, 1);
+	listSkills[5].addSkillElements("Ground");
+	
+	listSkills[6] = Skill("ApiAmarah", 300, 1);
+	listSkills[6].addSkillElements("Fire");
+	
+	listSkills[7] = Skill("SusuMilo", 240, 1);
+	listSkills[7].addSkillElements("Water");
+	listSkills[7].addSkillElements("Ice");
+	
+	listSkills[8] = Skill("EsKepal", 300, 1);
+	listSkills[8].addSkillElements("Ice");
+	
+	listSkills[9] = Skill("FireDance", 150, 1);
+	listSkills[9].addSkillElements("Fire");
+	
+	listSkills[10] = Skill("LightningStrike", 280, 1);
+	listSkills[10].addSkillElements("Electric");
+	
+	listSkills[11] = Skill("Blizzaro", 300, 1);
+	listSkills[11].addSkillElements("Water");
+	listSkills[11].addSkillElements("Ground");
+	
+	listSkills[14] = Skill("Pandemonium", 250, 1);
+	listSkills[14].addSkillElements("Ground");
+	listSkills[14].addSkillElements("Ice");
+	
+	listSkills[15] = Skill("DomainExpansion", 320, 1);
+	listSkills[15].addSkillElements("Fire");
+	listSkills[15].addSkillElements("Electric");
+	
+	listSkills[16] = Skill("Wadimorphism", 320, 1);
+	listSkills[16].addSkillElements("Ground");
+	
+	listSkills[17] = Skill("WaterSplash", 90, 1);
+	listSkills[17].addSkillElements("Water");
+}
+
 void GameState::showMap() {
 	cout << "<<<<<<<<<<<<<<<<<<------------------------>>>>>>>>>>>>>>>>>>>" << endl;
 	cout << "Engimon Ronde ke-" << round << endl;

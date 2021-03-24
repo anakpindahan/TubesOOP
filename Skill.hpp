@@ -16,7 +16,7 @@ class Skill{
 
     public:
         Skill();
-        Skill(string, string&, int, int);
+        Skill(string, int, int);
         Skill& operator=(const Skill&);
         ~Skill();
         

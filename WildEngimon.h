@@ -37,7 +37,8 @@ class WildEngimon : public Engimon{
 		void setCoordinate(Cell);
 		void setCoordinate(int, int);
 		void setLevel(int);
-		void setXp(int);
+		void setXp(int xp);
+		void setCumulXp(int);
 		void setName(string);
 		void setParentName1(string);
 		void setParentName2(string);
@@ -49,6 +50,7 @@ class WildEngimon : public Engimon{
 		void setSymbolLevel();
 		WildEngimon breed(WildEngimon);					// Dua metode ini sebenarnya untuk Engimon di inventory
 		bool legalToBreed(WildEngimon, WildEngimon);	// Akan dipindah jika sudah ada
+
 };
 
 #endif

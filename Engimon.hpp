@@ -1,9 +1,11 @@
 #ifndef ENGIMON_H
 #define ENGIMON_H
-
 #include "Cell.hpp"
 #include "Exception.hpp"
 #include "Skill.hpp"
+#include <iostream>
+#include <queue>
+using namespace std;
 
 #define MAX_ELEMENTS 2
 #define MAX_SKILL 4
@@ -12,12 +14,13 @@ class Engimon{
 	protected:
 		int id;				
 		string species;		
-		Skill *skill;
+		priority_queue<Skill> skill;
 		string *elements;	// Bertipe list. Elemen bisa berupa "Fire", "Ground", "Electric", "Water", "Ice"
 		string slogan;		// Slogan dari engimon (untuk 3.c.iv)
 		int maxExp;			// Exp (kumulatif) maksimal yang dapat dimiliki engimon sebelum mati
 		char symbol;		// Simbol dari engimon (default: kapital) di peta
 		int numElements; 	// Banyak elemen yang dimiliki engimon
+		int numSkill;
 	public:
 		Engimon();
 		Engimon(const Engimon&);
@@ -25,8 +28,8 @@ class Engimon{
 		Engimon& operator=(const Engimon&);
 		~Engimon();
 		int getId();
-		Skill& getSkill();
-		string& getElement();
+		priority_queue<Skill> getSkill();
+		string getElement(int);
 		string getSlogan();
 		char getSymbol(); 
 		int getMaxExp();
@@ -35,6 +38,11 @@ class Engimon{
 		void setSymbol(); 			// Mengatur simbol dari engimon berdasarkan elemen
 		void setSymbol(char);
 		bool isSameType(Engimon);
+		void addSkill(Skill);
+		void inheritSkill(Engimon, Engimon);		// Mewariskan skill yang sesuai dari orangtua
+		void inheritElement(Engimon, Engimon);
+		int getNumElements();
+		int getNumSkill();
 };
 
 #endif

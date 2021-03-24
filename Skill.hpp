@@ -2,7 +2,7 @@
 #define SKILL_H
 
 #include <iostream>
-
+#include <cstring>
 #define MaxSkillElements 5
 
 using namespace std;
@@ -17,6 +17,7 @@ class Skill{
     public:
         Skill();
         Skill(string, int, int);
+        Skill(const Skill&);
         Skill& operator=(const Skill&);
         ~Skill();
         
@@ -28,8 +29,10 @@ class Skill{
         void addSkillElements(string);
         void setBasePower(int);
         void addMasteryLevel(int);
-        
-        
+        bool operator<(const Skill&) const;
+        bool operator>(const Skill&) const;
+        bool operator==(const Skill&) const;
+        bool canUsedBy(string);
 };
 
 #endif

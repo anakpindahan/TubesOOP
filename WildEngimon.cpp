@@ -23,7 +23,7 @@ WildEngimon::WildEngimon(int _id, string _species, string _slogan, int _maxExp,
 	coordinate = _coordinate;
 	level = _level;
 	xp = _xp;
-	cumulXp = level * 100 + xp;
+	cumulXp = (level - 1) * 100 + xp;
 	name = _name;
 	parentName1 = "Fulan";
 	parentName2 = "Fulanah";
@@ -110,6 +110,10 @@ void WildEngimon::setLevel(int _level) {
 	level = _level;
 }
 
+void WildEngimon::setXp(int _xp) {
+	xp = _xp;
+}
+
 void WildEngimon::setName(string _name) {
 	name = _name;
 }
@@ -130,11 +134,14 @@ void WildEngimon::setSpeciesParent2(string _speciesParent2) {
 	speciesParent2 = _speciesParent2;
 }
 
-void WildEngimon::setXp(int _xp) {
-	xp = _xp;
+void WildEngimon::setCumulXp(int _cumulXp) {
+	cumulXp = _cumulXp;
+	level = 1 + (cumulXp / 100);
+	xp = cumulXp % 100;
 }
 
 void WildEngimon::xpUp(int dXp) {
+	cumulXp += dXp;
 	if (cumulXp >= maxExp) {
 		delete this;
 	} else {
@@ -173,17 +180,11 @@ void WildEngimon::setSymbolLevel() {
 WildEngimon WildEngimon::breed(WildEngimon w) {
 	WildEngimon child;
 	if (legalToBreed(*this, w)) {
-		cumulXp -= 300;
-		w.cumulXp -= 300;
 		level -= 30;
 		w.level -= 30;
-		if (elements[0] == w.elements[0]) {
-			child.addElements(elements[0]);
-		} else {
-			child.addElements(elements[0]);
-			child.addElements(w.elements[0]);
-		}
-		child.setLevel(0);
+		child.inheritElement(*this, w);
+		child.inheritSkill(*this, w);
+		child.setCumulXp(0);
 		child.setParentName1(name);
 		child.setParentName2(w.name);
 		child.setSpeciesParent1(species);
@@ -196,20 +197,12 @@ WildEngimon WildEngimon::breed(WildEngimon w) {
 
 bool WildEngimon::legalToBreed(WildEngimon w1, WildEngimon w2) {
 	if (w1.level >= 30 && w2.level >= 30) {
-		if (w1.elements[0] == w2.elements[0]) {
-			return (w1.numElements == 1 && w2.numElements == 1);
-		} else if ((w1.elements[0] == "Fire" && w2.elements[0] == "Electric")
-				|| (w2.elements[0] == "Fire" && w1.elements[0] == "Electric")) {
-			return true;
-		} else if ((w1.elements[0] == "Water" && w2.elements[0] == "Ice")
-				|| (w2.elements[0] == "Water" && w1.elements[0] == "Ice")) {
-			return true;
-		} else if ((w1.elements[0] == "Water" && w2.elements[0] == "Ground")
-				|| (w2.elements[0] == "Water" && w1.elements[0] == "Ground")) {
+		/*if (w1.numElements == 1 && w2.numElements == 1) {
 			return true;
 		} else {
 			return false;
-		}
+		}*/
+		return true;
 	} else {
 		return false;
 	}

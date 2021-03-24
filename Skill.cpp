@@ -24,6 +24,17 @@ Skill::Skill(string nama, int BP, int ML){
 	}
 }
 
+Skill::Skill(const Skill& s){
+	namaSkill = s.namaSkill;
+	basePower = s.basePower;
+	masteryLevel = s.masteryLevel;
+
+	skillElements = new string[MaxSkillElements];
+	for(int i = 0; i < MaxSkillElements; i++){
+		skillElements[i] = s.skillElements[i];
+	}
+}
+
 Skill& Skill::operator=(const Skill& s){
 	namaSkill = s.namaSkill;
 	basePower = s.basePower;
@@ -75,4 +86,24 @@ void Skill::addMasteryLevel(int a){
 	masteryLevel += a;
 }
 
+bool Skill::operator <(const Skill& s) const{
+	return (masteryLevel < s.masteryLevel);
+}
 
+bool Skill::operator >(const Skill& s) const {
+	return (masteryLevel > s.masteryLevel);
+}
+
+bool Skill::operator ==(const Skill& s) const {
+	return (masteryLevel == s.masteryLevel);
+}
+
+bool Skill::canUsedBy(string element) {
+	bool temp = false;
+	for(int i = 0; i < MaxSkillElements; i++){
+		if(skillElements[i] == element){
+			temp = true;
+		}
+	}
+	return temp;
+}

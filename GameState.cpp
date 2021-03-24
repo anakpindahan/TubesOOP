@@ -40,6 +40,8 @@ GameState::GameState() {
 
 	srand(time(NULL));
 
+	initSkill();
+
 	// Menmbuat list engimon
 	initEngimon();
 
@@ -115,37 +117,82 @@ void GameState::readMap(string _file) {
 }
 
 void GameState::initEngimon() {
-	listEngimons[0] = Engimon(1, "Charmeleon", "Cha cha real smooth", 10000);
+	listEngimons[0] = Engimon(1, "Charmeleon", "Cha cha real smooth", 70000);
 	listEngimons[0].addElements("Fire");
-	listEngimons[1] = Engimon(2, "Omanyte", "Ooo man ooo man", 30000);
+	listEngimons[0].addSkill(listSkills[0]);
+	listEngimons[0].addSkill(listSkills[15]);
+
+	listEngimons[1] = Engimon(2, "Omanyte", "Ooo man ooo man", 60000);
 	listEngimons[1].addElements("Water");
+	listEngimons[1].addSkill(listSkills[11]);
+	listEngimons[1].addSkill(listSkills[17]);
+
+
 	listEngimons[2] = Engimon(3, "Doraemon", "Aku ini kucing, bukan musang",
 			66000);
 	listEngimons[2].addElements("Ice");
+	listEngimons[2].addSkill(listSkills[2]);
+	listEngimons[2].addSkill(listSkills[4]);
+	listEngimons[2].addSkill(listSkills[13]);
+
 	listEngimons[3] = Engimon(4, "Pikachu", "Pika pika", 120000);
 	listEngimons[3].addElements("Electric");
-	listEngimons[4] = Engimon(5, "BoboiBoyGempa", "Terbaek", 35000);
+	listEngimons[3].addSkill(listSkills[3]);
+	listEngimons[3].addSkill(listSkills[10]);
+	listEngimons[3].addSkill(listSkills[15]);
+
+	listEngimons[4] = Engimon(5, "BoboiBoyGempa", "Terbaek", 75000);
 	listEngimons[4].addElements("Ground");
+	listEngimons[4].addSkill(listSkills[4]);
+	listEngimons[4].addSkill(listSkills[5]);
+
 	listEngimons[5] = Engimon(6, "LaCorona",
 			"Siapa itu yang minta libur setahun?", 55500);
 	listEngimons[5].addElements("Water");
 	listEngimons[5].addElements("Ice");
+	listEngimons[5].addSkill(listSkills[4]);
+	listEngimons[5].addSkill(listSkills[11]);
+	listEngimons[5].addSkill(listSkills[14]);
+
 	listEngimons[6] = Engimon(7, "Buzz", "Ah yes, the floor here made of floor",
 			60000);
 	listEngimons[6].addElements("Water");
 	listEngimons[6].addElements("Ground");
+	listEngimons[6].addSkill(listSkills[1]);
+	listEngimons[6].addSkill(listSkills[11]);
+	listEngimons[6].addSkill(listSkills[16]);
+	listEngimons[6].addSkill(listSkills[17]);
+
 	listEngimons[7] = Engimon(8, "Boot", "Boot boot boot", 80000);
 	listEngimons[7].addElements("Fire");
 	listEngimons[7].addElements("Electric");
+	listEngimons[7].addSkill(listSkills[4]);
+	listEngimons[7].addSkill(listSkills[15]);
+
+
 	listEngimons[8] = Engimon(9, "AHHA", "Ashiaaaap", 55500);
 	listEngimons[8].addElements("Electric");
+	listEngimons[8].addSkill(listSkills[10]);
+	listEngimons[8].addSkill(listSkills[12]);
+
+
 	listEngimons[9] = Engimon(10, "DewiUseless", "Wheee, Kazumaaaa", 77800);
 	listEngimons[9].addElements("Water");
 	listEngimons[9].addElements("Ice");
+	listEngimons[9].addSkill(listSkills[4]);
+	listEngimons[9].addSkill(listSkills[7]);
+
 	listEngimons[10] = Engimon(11, "YukiOnna", "Hurururururu", 88200);
 	listEngimons[10].addElements("Ice");
+	listEngimons[10].addSkill(listSkills[4]);
+	listEngimons[10].addSkill(listSkills[8]);
+
 	listEngimons[11] = Engimon(12, "Oopsie", "Ctor cctor dtor", 65000);
 	listEngimons[11].addElements("Ground");
+	listEngimons[11].addSkill(listSkills[13]);
+	listEngimons[11].addSkill(listSkills[16]);
+
+
 }
 
 void GameState::initSkill(){
@@ -394,11 +441,19 @@ void GameState::spawn(int newWild) {
 
 			e = listEngimons[idE - 1];
 			wildEngimons[i] = WildEngimon(e.getId(), e.getSpecies(),
-					e.getSlogan(), e.getMaxExp(), Cell(), rand() % 10,
+					e.getSlogan(), e.getMaxExp(), Cell(), 30 + (rand() % 10),
 					rand() % 100, "No Name");
+			for(int k = 0; k < e.getNumElements(); k++){
+				wildEngimons[i].addElements(e.getElement(k));
+			}
 			wildEngimons[i].setSymbol(e.getSymbol());
 			wildEngimons[i].setSymbolLevel();
 			wildEngimons[i].setCoordinate(x, y);
+			priority_queue<Skill> pq = e.getSkill();
+			for(int k = 0; k < e.getNumSkill(); k++){
+				wildEngimons[i].addSkill(pq.top());
+				pq.pop();
+			}
 			map[y][x].setEntity("WEng");
 			map[y][x].setSymbol(wildEngimons[i].getSymbol());
 			j--;

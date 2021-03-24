@@ -1,8 +1,11 @@
 #include "WildEngimon.h"
-#include <iostream>
+
+#include <cctype>
+
 using namespace std;
 
-WildEngimon::WildEngimon() : Engimon::Engimon(){
+WildEngimon::WildEngimon() :
+		Engimon::Engimon() {
 	coordinate = Cell(5, 6, "Grass", "WEng", 'W');
 	level = 2;
 	xp = 5;
@@ -14,7 +17,9 @@ WildEngimon::WildEngimon() : Engimon::Engimon(){
 	speciesParent2 = "-";
 }
 
-WildEngimon::WildEngimon(int _id, string _species, string _slogan, int _maxExp, Cell _coordinate, int _level, int _xp, string _name) : Engimon::Engimon(_id, _species, _slogan, _maxExp){
+WildEngimon::WildEngimon(int _id, string _species, string _slogan, int _maxExp,
+		Cell _coordinate, int _level, int _xp, string _name) :
+		Engimon::Engimon(_id, _species, _slogan, _maxExp) {
 	coordinate = _coordinate;
 	level = _level;
 	xp = _xp;
@@ -26,7 +31,7 @@ WildEngimon::WildEngimon(int _id, string _species, string _slogan, int _maxExp, 
 	speciesParent2 = "-";
 }
 
-WildEngimon::WildEngimon(const WildEngimon& we){
+WildEngimon::WildEngimon(const WildEngimon& we) {
 	id = we.id;
 	coordinate = we.coordinate;
 	level = we.level;
@@ -39,7 +44,7 @@ WildEngimon::WildEngimon(const WildEngimon& we){
 	speciesParent2 = we.speciesParent2;
 }
 
-WildEngimon& WildEngimon::operator=(const WildEngimon& we){
+WildEngimon& WildEngimon::operator=(const WildEngimon& we) {
 	this->coordinate = we.coordinate;
 	this->level = we.level;
 	this->xp = we.xp;
@@ -52,128 +57,127 @@ WildEngimon& WildEngimon::operator=(const WildEngimon& we){
 	return *this;
 }
 
+WildEngimon::~WildEngimon() {
 
-WildEngimon::~WildEngimon(){
-	
 }
 
-Cell WildEngimon::getCoordinate(){
+Cell WildEngimon::getCoordinate() {
 	return coordinate;
 }
 
-int WildEngimon::getLevel(){
+int WildEngimon::getLevel() {
 	return level;
 }
 
-int WildEngimon::getXp(){
+int WildEngimon::getXp() {
 	return xp;
 }
 
-int WildEngimon::getCumulXp(){
+int WildEngimon::getCumulXp() {
 	return level * 100 + xp;
 }
 
-string WildEngimon::getName(){
+string WildEngimon::getName() {
 	return name;
 }
 
-string WildEngimon::getParentName1(){
+string WildEngimon::getParentName1() {
 	return parentName1;
 }
 
-string WildEngimon::getParentName2(){
+string WildEngimon::getParentName2() {
 	return parentName2;
 }
 
-string WildEngimon::getSpeciesParent1(){
+string WildEngimon::getSpeciesParent1() {
 	return speciesParent1;
 }
 
-string WildEngimon::getSpeciesParent2(){
+string WildEngimon::getSpeciesParent2() {
 	return speciesParent2;
 }
 
-void WildEngimon::setCoordinate(Cell _coordinate){
+void WildEngimon::setCoordinate(Cell _coordinate) {
 	coordinate = _coordinate;
 }
 
-void WildEngimon::setCoordinate(int _X, int _Y){
+void WildEngimon::setCoordinate(int _X, int _Y) {
 	coordinate.setX(_X);
 	coordinate.setY(_Y);
 }
 
-void WildEngimon::setLevel(int _level){
+void WildEngimon::setLevel(int _level) {
 	level = _level;
 }
 
-void WildEngimon::setName(string _name){
+void WildEngimon::setName(string _name) {
 	name = _name;
 }
 
-void WildEngimon::setParentName1(string _parentName1){
+void WildEngimon::setParentName1(string _parentName1) {
 	parentName1 = _parentName1;
 }
 
-void WildEngimon::setParentName2(string _parentName2){
+void WildEngimon::setParentName2(string _parentName2) {
 	parentName2 = _parentName2;
 }
 
-void WildEngimon::setSpeciesParent1(string _speciesParent1){
+void WildEngimon::setSpeciesParent1(string _speciesParent1) {
 	speciesParent1 = _speciesParent1;
 }
 
-void WildEngimon::setSpeciesParent2(string _speciesParent2){
+void WildEngimon::setSpeciesParent2(string _speciesParent2) {
 	speciesParent2 = _speciesParent2;
 }
 
-void WildEngimon::setXp(int _xp){
+void WildEngimon::setXp(int _xp) {
 	xp = _xp;
 }
 
-void WildEngimon::xpUp(int dXp){
-	if(cumulXp >= maxExp){
+void WildEngimon::xpUp(int dXp) {
+	if (cumulXp >= maxExp) {
 		delete this;
 	} else {
-		if(xp + dXp >= 100){
+		if (xp + dXp >= 100) {
 			levelUp((xp + dXp / 100));
 		}
-		xp = (xp + dXp) % 100;		
+		xp = (xp + dXp) % 100;
 	}
 
 }
 
-void WildEngimon::levelUp(int dLevel){
+void WildEngimon::levelUp(int dLevel) {
 	level += dLevel;
 }
 
-bool WildEngimon::isSuitable(Cell c){
-	if(symbol == 'F' || symbol == 'G' || symbol == 'E' || symbol == 'L'){
-		return(c.getType() == "Grass");
-	} else if(symbol == 'W' || symbol == 'I' || symbol == 'S'){
-		return(c.getType() == "Sea");
-	} else if(symbol == 'N'){
+bool WildEngimon::isSuitable(Cell c) {
+	if (symbol == 'F' || symbol == 'G' || symbol == 'E' || symbol == 'L') {
+		return (c.getType() == "Grass");
+	} else if (symbol == 'W' || symbol == 'I' || symbol == 'S') {
+		return (c.getType() == "Sea");
+	} else if (symbol == 'N') {
 		return true;
 	} else {
 		return false;
 	}
 }
 
-void WildEngimon::setSymbolLevel(){
-	if(level >= CAPITAL_LEVEL){
+void WildEngimon::setSymbolLevel() {
+	if (level >= CAPITAL_LEVEL) {
 		symbol = toupper(symbol);
 	} else {
 		symbol = tolower(symbol);
 	}
 }
 
-WildEngimon WildEngimon::breed(WildEngimon w){
+WildEngimon WildEngimon::breed(WildEngimon w) {
 	WildEngimon child;
-	if(legalToBreed(*this, w)){
+	if (legalToBreed(*this, w)) {
 		cumulXp -= 300;
 		w.cumulXp -= 300;
 		level -= 30;
 		w.level -= 30;
-		if(elements[0] == w.elements[0]){
+		if (elements[0] == w.elements[0]) {
 			child.addElements(elements[0]);
 		} else {
 			child.addElements(elements[0]);
@@ -185,18 +189,23 @@ WildEngimon WildEngimon::breed(WildEngimon w){
 		child.setSpeciesParent1(species);
 		child.setSpeciesParent2(w.species);
 		return child;
+	} else {
+		throw(Exception(UNSUITABLE_BREED));
 	}
 }
 
-bool WildEngimon::legalToBreed(WildEngimon w1, WildEngimon w2){
-	if(w1.level >= 30 && w2.level >= 30){
-		if(w1.elements[0] == w2.elements[0]){
-			return(w1.numElements == 1 && w2.numElements == 1);
-		} else if((w1.elements[0] == "Fire" && w2.elements[0] == "Electric") || (w2.elements[0] == "Fire" && w1.elements[0] == "Electric")){
+bool WildEngimon::legalToBreed(WildEngimon w1, WildEngimon w2) {
+	if (w1.level >= 30 && w2.level >= 30) {
+		if (w1.elements[0] == w2.elements[0]) {
+			return (w1.numElements == 1 && w2.numElements == 1);
+		} else if ((w1.elements[0] == "Fire" && w2.elements[0] == "Electric")
+				|| (w2.elements[0] == "Fire" && w1.elements[0] == "Electric")) {
 			return true;
-		} else if((w1.elements[0] == "Water" && w2.elements[0] == "Ice") || (w2.elements[0] == "Water" && w1.elements[0] == "Ice")){
+		} else if ((w1.elements[0] == "Water" && w2.elements[0] == "Ice")
+				|| (w2.elements[0] == "Water" && w1.elements[0] == "Ice")) {
 			return true;
-		} else if((w1.elements[0] == "Water" && w2.elements[0] == "Ground") || (w2.elements[0] == "Water" && w1.elements[0] == "Ground")){
+		} else if ((w1.elements[0] == "Water" && w2.elements[0] == "Ground")
+				|| (w2.elements[0] == "Water" && w1.elements[0] == "Ground")) {
 			return true;
 		} else {
 			return false;

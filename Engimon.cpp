@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Engimon::Engimon(){
+Engimon::Engimon() {
 	id = -1;
 	species = "-";
 	slogan = "-";
@@ -14,20 +14,32 @@ Engimon::Engimon(){
 	setSymbol();
 }
 
-Engimon::Engimon(int _id, string _species, string _slogan, int _maxExp){
+Engimon::Engimon(const Engimon& e) {
+	id = e.id;
+	species = e.species;
+	slogan = e.slogan;
+	elements = new string[MAX_ELEMENTS];
+	elements[0] = e.elements[0];
+	elements[1] = e.elements[1];
+	maxExp = e.maxExp;
+	symbol = e.symbol;
+	numElements = e.numElements;
+}
+
+Engimon::Engimon(int _id, string _species, string _slogan, int _maxExp) {
 	id = _id;
 	species = _species;
 	/*for(int i = 0; i < MAX_SKILL; i++){
-		skill[i] = _skill;
-	}*/
+	 skill[i] = _skill;
+	 }*/
 	slogan = _slogan;
-	elements = new string [MAX_ELEMENTS];
+	elements = new string[MAX_ELEMENTS];
 	maxExp = _maxExp;
 	setSymbol();
 	numElements = 0;
 }
 
-Engimon& Engimon::operator=(const Engimon& e){
+Engimon& Engimon::operator=(const Engimon& e) {
 	this->id = e.id;
 	this->species = e.species;
 	//this->skill = e.skill;
@@ -41,74 +53,74 @@ Engimon& Engimon::operator=(const Engimon& e){
 	return *this;
 }
 
-Engimon::~Engimon(){
-	delete [] elements;
+Engimon::~Engimon() {
+	delete[] elements;
 	//delete [] skill;
 }
 
-int Engimon::getId(){
+int Engimon::getId() {
 	return id;
 }
 
 /*Skill& Engimon::getSkill(){
-	return *skill; 
-}*/
+ return *skill;
+ }*/
 
-string& Engimon::getElement(){
+string& Engimon::getElement() {
 	return *elements;
 }
 
-string Engimon::getSlogan(){
+string Engimon::getSlogan() {
 	return slogan;
 }
 
-char Engimon::getSymbol(){
+char Engimon::getSymbol() {
 	return symbol;
 }
 
-int Engimon::getMaxExp(){
+int Engimon::getMaxExp() {
 	return maxExp;
 }
 
-string Engimon::getSpecies(){
+string Engimon::getSpecies() {
 	return species;
 }
 
-void Engimon::addElements(string _element){
+void Engimon::addElements(string _element) {
 	elements[numElements] = _element;
 	numElements++;
 	setSymbol();
 }
 
-void Engimon::setSymbol(){
-	if(elements[0] == "Fire"){
-		if(elements[1] == "Electric"){
+void Engimon::setSymbol() {
+	if (elements[0] == "Fire") {
+		if (elements[1] == "Electric") {
 			symbol = 'L';
 		} else {
 			symbol = 'F';
 		}
-	} else if(elements[0] == "Water"){
-		if(elements[1] == "Ice"){
+	} else if (elements[0] == "Water") {
+		if (elements[1] == "Ice") {
 			symbol = 'S';
-		} else if(elements[1] == "Ground"){
+		} else if (elements[1] == "Ground") {
 			symbol = 'N';
 		} else {
 			symbol = 'W';
 		}
-	} else if(elements[0] == "Ice"){
-		if(elements[1] == "Water"){
+	} else if (elements[0] == "Ice") {
+		if (elements[1] == "Water") {
 			symbol = 'S';
 		} else {
 			symbol = 'I';
 		}
-	} else if(elements[0] == "Ground"){
-		if(elements[1] == "Water"){
+	} else if (elements[0] == "Ground") {
+		if (elements[1] == "Water") {
 			symbol = 'N';
 		} else {
-			symbol = 'G'; 
+			symbol = 'G';
 		}
-	} else if(elements[0] == "Electric"){
-		if(elements[1] == "Fire"){
+	} else if (elements[0] == "Electric") {
+		if (elements[1] == "Fire") {
 			symbol = 'L';
 		} else {
 			symbol = 'E';
@@ -116,18 +128,21 @@ void Engimon::setSymbol(){
 	}
 }
 
-void Engimon::setSymbol(char _symbol){
+void Engimon::setSymbol(char _symbol) {
 	symbol = _symbol;
 }
 
-bool Engimon::isSameType(Engimon e){
-	if(numElements == e.numElements){
-		if(numElements == 1){
-			return(elements[0] == e.elements[0]);
+bool Engimon::isSameType(Engimon e) {
+	if (numElements == e.numElements) {
+		if (numElements == 1) {
+			return (elements[0] == e.elements[0]);
 		} else {
-			return((elements[0] == e.elements[0] && elements[1] == e.elements[1]) || (elements[0] == e.elements[1] && elements[1] == e.elements[0]));
+			return ((elements[0] == e.elements[0]
+					&& elements[1] == e.elements[1])
+					|| (elements[0] == e.elements[1]
+							&& elements[1] == e.elements[0]));
 		}
-	} else{
+	} else {
 		return false;
 	}
 }

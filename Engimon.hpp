@@ -2,6 +2,7 @@
 #define ENGIMON_H
 
 #include "Cell.hpp"
+#include "Exception.hpp"
 
 #define MAX_ELEMENTS 2
 #define MAX_SKILL 4
@@ -18,6 +19,7 @@ class Engimon{
 		int numElements; 	// Banyak elemen yang dimiliki engimon
 	public:
 		Engimon();
+		Engimon(const Engimon&);
 		Engimon(int, string, string, int);
 		Engimon& operator=(const Engimon&);
 		~Engimon();

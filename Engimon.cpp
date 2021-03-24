@@ -21,6 +21,10 @@ Engimon::Engimon(const Engimon& e) {
 	elements = new string[MAX_ELEMENTS];
 	elements[0] = e.elements[0];
 	elements[1] = e.elements[1];
+	skill = new Skill[MAX_SKILL];
+	for(int i = 0; i < MAX_SKILL; i++){
+		skill[i] = e.skill[i];
+	}
 	maxExp = e.maxExp;
 	symbol = e.symbol;
 	numElements = e.numElements;
@@ -29,9 +33,7 @@ Engimon::Engimon(const Engimon& e) {
 Engimon::Engimon(int _id, string _species, string _slogan, int _maxExp) {
 	id = _id;
 	species = _species;
-	/*for(int i = 0; i < MAX_SKILL; i++){
-	 skill[i] = _skill;
-	 }*/
+	skill = new Skill[MAX_SKILL];
 	slogan = _slogan;
 	elements = new string[MAX_ELEMENTS];
 	maxExp = _maxExp;
@@ -53,15 +55,9 @@ Engimon& Engimon::operator=(const Engimon& e) {
 	return *this;
 }
 
-<<<<<<< HEAD
-Engimon::~Engimon() {
-	delete[] elements;
-	//delete [] skill;
-=======
 Engimon::~Engimon(){
 	delete [] elements;
 	delete [] skill;
->>>>>>> 0e17404a89a9e6dec73fb1f7a2c2ff88a2ed5579
 }
 
 int Engimon::getId() {

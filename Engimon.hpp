@@ -3,6 +3,7 @@
 
 #include "Cell.hpp"
 #include "Exception.hpp"
+#include "Skill.hpp"
 
 #define MAX_ELEMENTS 2
 #define MAX_SKILL 4
@@ -11,7 +12,7 @@ class Engimon{
 	protected:
 		int id;				
 		string species;		
-		// Skill *skill;
+		Skill *skill;
 		string *elements;	// Bertipe list. Elemen bisa berupa "Fire", "Ground", "Electric", "Water", "Ice"
 		string slogan;		// Slogan dari engimon (untuk 3.c.iv)
 		int maxExp;			// Exp (kumulatif) maksimal yang dapat dimiliki engimon sebelum mati
@@ -24,7 +25,7 @@ class Engimon{
 		Engimon& operator=(const Engimon&);
 		~Engimon();
 		int getId();
-		//Skill& getSkill();
+		Skill& getSkill();
 		string& getElement();
 		string getSlogan();
 		char getSymbol(); 

@@ -37,3 +37,7 @@ void Player::setCoordinate(int _X, int _Y){
 void Player::setCurrSymbol(char _currSymbol){
 	currSymbol = _currSymbol;
 }
+
+void Player::setEngimon(Engimon engimon){
+	this->engimon = engimon;
+}

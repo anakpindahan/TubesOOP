@@ -2,7 +2,7 @@
 
 template <class T>
 InventoryEngimon<T>::InventoryEngimon(){
-    this->quantity = 0 ;
+    // this->quantity = 0 ;
 }
 template <class T>
 InventoryEngimon<T>::~InventoryEngimon(){}
@@ -24,7 +24,7 @@ void InventoryEngimon<T>::truncate(){
 
 template <class T>
 void InventoryEngimon<T>::deleteEngimon(int offset){
-    this->listEngimon.erase(offset-1);
+    this->listEngimon.erase(this->listEngimon.begin()+offset-1);
 }
 
 template <class T>
@@ -35,3 +35,5 @@ T InventoryEngimon<T>::changeEngimon(T engimonInput, int offsetTarget){
     this->putIn(engimonInput);
     return (*temp);    
 }
+
+template class InventoryEngimon<Engimon>;

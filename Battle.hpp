@@ -18,7 +18,7 @@ class Battle : public WildEngimon{
     	Battle();
     	int sum(int);
 		int TotalPower(WildEngimon, int, Skill);
-		void showTotalPower();
+		void showTotalPower(int);
 		void elementAdv1(Engimon, Engimon);
 		void tanding(WildEngimon, WildEngimon, Skill, Skill);
         

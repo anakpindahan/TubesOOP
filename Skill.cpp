@@ -49,7 +49,7 @@ Skill::~Skill(){
 	delete[] skillElements;
 }
 
-string Skill::getNamaSkill(){
+string Skill::getNamaSkill() const{
 	return namaSkill;
 } 
 

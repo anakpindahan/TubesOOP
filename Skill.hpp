@@ -21,7 +21,7 @@ class Skill{
         Skill& operator=(const Skill&);
         ~Skill();
         
-        string getNamaSkill();
+        string getNamaSkill() const;
         string& getSkillElements();
         int getBasePower();
         int getMasteryLevel();

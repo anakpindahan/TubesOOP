@@ -11,6 +11,7 @@ Skill::Skill(){
 	}
     basePower = 1;
     masteryLevel = 1;
+    numSkill = 0;
 }
 
 Skill::Skill(string nama, int BP, int ML){
@@ -22,6 +23,7 @@ Skill::Skill(string nama, int BP, int ML){
     for (int i = 0; i<MaxSkillElements; i++){
     	skillElements[i] = "noElement";
 	}
+    numSkill = 0;
 }
 
 Skill::Skill(const Skill& s){
@@ -33,6 +35,7 @@ Skill::Skill(const Skill& s){
 	for(int i = 0; i < MaxSkillElements; i++){
 		skillElements[i] = s.skillElements[i];
 	}
+	numSkill = s.numSkill;
 }
 
 Skill& Skill::operator=(const Skill& s){
@@ -42,6 +45,7 @@ Skill& Skill::operator=(const Skill& s){
 	for (int i=0; i<MaxSkillElements; i++){
 		skillElements[i] = s.skillElements[i];
 	}
+	numSkill = s.numSkill;
 	return *this;
 }
 
@@ -106,4 +110,15 @@ bool Skill::canUsedBy(string element) {
 		}
 	}
 	return temp;
+}
+
+ostream& operator<<(ostream& out, const Skill& skill){
+	out << "Nama skill: " << skill.namaSkill << endl;
+	out << "       Base power: " << skill.basePower << endl;
+	out << "       Mastery level: " << skill.masteryLevel << endl;
+	out << "       Elemen yang dapat menggunakan skill: ";
+	for(int i = 0; i < skill.numSkill; i++){
+		out << skill.skillElements[i] << " ";
+	}
+	return out;
 }

@@ -1,0 +1,19 @@
+Ini tempat komunikasi ya gess
+Yang kurang kita kan:
+1. Battle belum diintegrasikan
+2. Inventory Skill belum diintegrasikan
+3. Inventory Engimon lagi menunggu info
+
+
+btw cara compile nya gmn deh? ganemu tombol nya wkwk	
+1. ctrl+shift+alt+T, ini terminal sih
+2. cd ke D:\Semester 4\IF2210 - Pemrograman Berorientasi Objek\Tubes\TubesOOP1\TubesOOP
+3. g++ -o g++ -o main Main.cpp GameState.cpp Cell.cpp InventoryEngimon.cpp Player.cpp Engimon.cpp RealEngimon.cpp Exception.cpp Skill.cpp Battle.cpp InventorySkill.cpp
+4. main
+
+summon mastah:
+jadi how battle :
+sebetulnya mau nanya, battle perlu ditambahin ke diagram kah ?
+battle ada depend / aggre ga ? / inherit. Jadi pake garis yg kosong (tanpa panah / diamond) ? tapi ke siapa garisnya
+1. Hitung advantage chart. Advantage chart iya, misalnya air vs air dia dapatat "1".
+2.  iyaa,, ke player(eh player sih ini) dan wildEngimon, state game termasuk kah ? ada 

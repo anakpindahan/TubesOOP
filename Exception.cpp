@@ -17,7 +17,8 @@ string Exception::errorMessage[EXCEPTION_POSSIBLE] = {
 		"Engimon bergerak ke luar peta",
 		"Kedua engimon ini tidak dapat dikawinkan", "Cell ini sudah ditempati",
 		"Command yang dimasukkan tidak ada",
-		"Terima kasih sudah bermain Engimon~" };
+		"Terima kasih sudah bermain Engimon~",
+		"Tidak ada engimon liar di posisi ini" };
 
 Exception::Exception(int x) :
 		errorNumber(x) {
@@ -33,6 +34,6 @@ void Exception::displayMessage() const {
 	cout << errorMessage[errorNumber] << endl;
 }
 
-int Exception::getErrorNumber() const{
+int Exception::getErrorNumber() const {
 	return errorNumber;
 }

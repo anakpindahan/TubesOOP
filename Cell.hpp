@@ -29,6 +29,7 @@ class Cell{
 		void setEntity(string);
 		void setSymbol(char);
 		void setNaturalSymbol(); 			// Mengembalikan symbol ke o atau - sesuai tipe cell
+		bool operator==(const Cell&);
 		friend ostream& operator<<(ostream&, const Cell&);
 };
 

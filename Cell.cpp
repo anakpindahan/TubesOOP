@@ -85,3 +85,7 @@ void Cell::setNaturalSymbol(){
 		symbol = 'o';
 	}
 }
+
+bool Cell::operator ==(const Cell& c) {
+	return(X == c.X && Y == c.Y);
+}

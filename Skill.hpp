@@ -13,6 +13,7 @@ class Skill{
         string *skillElements;
         int basePower;
         int masteryLevel;
+        int numSkill;
 
     public:
         Skill();
@@ -33,6 +34,7 @@ class Skill{
         bool operator>(const Skill&) const;
         bool operator==(const Skill&) const;
         bool canUsedBy(string);
+        friend ostream& operator<<(ostream&, const Skill&);
 };
 
 #endif

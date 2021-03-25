@@ -13,7 +13,7 @@ int InventoryEngimon<T>::numOfElement(){
 }
 
 template <class T>
-void InventoryEngimon<T>::putIn(T engimon){
+void InventoryEngimon<T>::putIn(T& engimon){
     this->listEngimon.push_back(engimon);
 }
 
@@ -29,11 +29,16 @@ void InventoryEngimon<T>::deleteEngimon(int offset){
 
 template <class T>
 T InventoryEngimon<T>::changeEngimon(T engimonInput, int offsetTarget){
-    Engimon *temp = new Engimon();
+    RealEngimon *temp = new RealEngimon();
     (*temp).operator=(this->listEngimon.at(offsetTarget-1));
     this->deleteEngimon(offsetTarget);
     this->putIn(engimonInput);
     return (*temp);    
 }
 
-template class InventoryEngimon<Engimon>;
+template <class T>
+T InventoryEngimon<T>::getEngimon(int i){
+	return this->listEngimon.at(i - 1);
+}
+
+template class InventoryEngimon<RealEngimon>;

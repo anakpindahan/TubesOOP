@@ -4,11 +4,11 @@
 #include <iostream>
 #include "Skill.hpp"
 #include "Engimon.hpp"
-#include "WildEngimon.h"
+#include "RealEngimon.h"
 
 using namespace std;
 
-class Battle : public WildEngimon{
+class Battle : public RealEngimon{
     private:
         int totalPower;
         int elementAdvPlayer;
@@ -17,10 +17,10 @@ class Battle : public WildEngimon{
     public:
     	Battle();
     	int sum(int);
-		int TotalPower(WildEngimon, int, Skill);
-		void showTotalPower(int);
+		int TotalPower(RealEngimon, int, Skill);
+		void showTotalPower(int,int);
 		void elementAdv1(Engimon, Engimon);
-		void tanding(WildEngimon, WildEngimon, Skill, Skill);
+		void tanding(RealEngimon, RealEngimon, Skill, Skill);
         
 };
 

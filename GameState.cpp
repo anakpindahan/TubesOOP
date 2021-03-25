@@ -32,7 +32,6 @@ GameState::GameState() {
 	kolom = MAP_KOLOM;
 
 	// Membuat Player
-	Player player;
 	map[player.getCoordinate().getX()][player.getCoordinate().getY()].setEntity(
 			"Player");
 	map[player.getCoordinate().getX()][player.getCoordinate().getY()].setSymbol(
@@ -44,6 +43,31 @@ GameState::GameState() {
 
 	// Menmbuat list engimon
 	initEngimon();
+
+	// Memberi player beberapa engimon acak
+	for (int i = 0; i < START_ENGIMON; i++) {
+		Engimon e;
+		e = listEngimons[rand() % ENGIMON_COUNT];
+		cout << "Kamu mendapatkan " << e.getSpecies() << "!" <<endl;
+		cout << "Silahkan beri nama: ";
+		string nama;
+		cin >> nama;
+		RealEngimon r(e.getId(), PLAYER_ENGIMON, e.getSpecies(),
+				e.getSlogan(), e.getMaxExp(), Cell(),
+				30 + (rand() % 10), rand() % 100, nama);
+		for (int k = 0; k < e.getNumElements(); k++) {
+			r.addElements(e.getElement(k));
+		}
+		r.setSymbol(e.getSymbol());
+		r.setSymbolLevel();
+		priority_queue<Skill> pq = e.getSkill();
+		for (int k = 0; k < e.getNumSkill(); k++) {
+			r.addSkill(pq.top());
+			pq.pop();
+		}
+		player.addEngimon(r);
+	}
+	playerEngimon = 3;
 
 	// Menggenerate wild engimon
 
@@ -361,9 +385,14 @@ string GameState::readCommand() {
 	string _command;
 	cout << "Silahkan masukkan command pilihan Anda" << endl;
 	cout << "Command yang dapat dimasukkan:" << endl;
-	cout << "1. Move (untuk melakukan pergerakan)" << endl;
-	cout << "2. Breed (untuk mengawinkan engimon)" << endl;
-	cout << "3. Exit (untuk keluar dari permainan)" << endl;
+	cout << "1. Move (melakukan pergerakan)" << endl;
+	cout << "2. Breed (mengawinkan engimon)" << endl;
+	cout << "3. Stat (melihat data dari engimon yang dipunyai)" << endl;
+	cout << "4. Switch (mengganti active engimon)" << endl;
+	cout << "5. Show Skill Item (melihat skill item yang ada)" << endl;
+	cout << "6. Use Skill Item (menggunakan skill item yang ada)" << endl;
+	cout << "7. Battle (bertarung dengan wild engimon yang ada)" << endl;
+	cout << "8. Exit (untuk keluar dari permainan)" << endl;
 	cout << "Command yang ingin dilakukan:";
 	cin >> _command;
 	return _command;
@@ -379,19 +408,14 @@ void GameState::executeCommand(string _command) {
 			e.displayMessage();
 		}
 	} else if (_command == "Breed") {
-		WildEngimon child;
-		try {
-			child = wildEngimons[0].breed(wildEngimons[1]);
-			int i = searchIdEngimon(child) - 1;
-			cout << "Masukkan nama bayi engimon: ";
-			string _name;
-			cin >> _name;
-			child.setName(_name);
-			round++;
-			regenerateWildEngimons();
-		} catch (Exception e) {
-			e.displayMessage();
+		breedPlayerEngimons();
+	} else if(_command == "Stat"){
+		for(int i = 1; i <= playerEngimon; i++){
+			player.getInventoryEngimon().getEngimon(i).showStat();
+			cout << endl;
 		}
+	} else if(_command == "Battle"){
+		battlePlayerEngimon();
 	} else if(_command == "Exit"){
 		throw(Exception(EXIT_COMMAND));
 	} else {
@@ -440,7 +464,7 @@ void GameState::spawn(int newWild) {
 			int idE = searchIdEngimon(engSym);
 
 			e = listEngimons[idE - 1];
-			wildEngimons[i] = WildEngimon(e.getId(), e.getSpecies(),
+			wildEngimons[i] = RealEngimon(e.getId(), WILD_ENGIMON, e.getSpecies(),
 					e.getSlogan(), e.getMaxExp(), Cell(), 30 + (rand() % 10),
 					rand() % 100, "No Name");
 			for(int k = 0; k < e.getNumElements(); k++){
@@ -484,7 +508,67 @@ void GameState::regenerateWildEngimons() {
 	}
 }
 
-int GameState::searchIdEngimon(WildEngimon w) {
+void GameState::breedPlayerEngimons() {
+
+	int e1, e2;
+	cout << "Masukkan dua nomor engimon yang ingin dikawinkan" << endl;
+	cin >> e1 >> e2;
+	try {
+		RealEngimon child;
+		child = player.getInventoryEngimon().getEngimon(e1).breed(player.getInventoryEngimon().getEngimon(e2));
+		int i = searchIdEngimon(child) - 1;
+		cout << "Masukkan nama bayi engimon: ";
+		string _name;
+		cin >> _name;
+		child.setName(_name);
+		playerEngimon++;
+		player.addEngimon(child);
+		round++;
+		regenerateWildEngimons();
+	} catch (Exception e) {
+		e.displayMessage();
+	}
+}
+
+void GameState::battlePlayerEngimon() {
+	Battle B;
+	string direction;
+	int noEngimon;
+	cout << "Silahkan pilih arah engimon liar yang akan dilawan: (A, W, S, D)"
+			<< endl;
+	cin >> direction;
+	int i = player.getCoordinate().getX(), j = player.getCoordinate().getY(), k,
+			l;
+	if (direction == "A") {
+		k = i - 1;
+		l = j;
+	} else if (direction == "D") {
+		k = i + 1;
+		l = j;
+	} else if (direction == "W") {
+		k = i;
+		l = j - 1;
+	} else if (direction == "S") {
+		k = i;
+		l = j + 1;
+	} else {
+		throw(Exception(WRONG_COMMAND));
+	}
+
+	cout << "Silahkan pilih nomor engimon yang ingin digunakan" << endl;
+	cin >> noEngimon;
+
+	try {
+		RealEngimon B1 = player.getInventoryEngimon().getEngimon(noEngimon);
+		RealEngimon B2 = wildEngimons[searchIdWildEngimon(Cell(k, l, "", "", 'X'))];
+		B.elementAdv1(player.getInventoryEngimon().getEngimon(noEngimon), wildEngimons[searchIdWildEngimon(Cell(k, l, "", "", 'X'))]);
+		B.tanding(player.getInventoryEngimon().getEngimon(noEngimon), wildEngimons[searchIdWildEngimon(Cell(k, l, "", "", 'X'))], B1.getSkill().top(), B2.getSkill().top());
+	} catch (Exception e) {
+		e.displayMessage();
+	}
+}
+
+int GameState::searchIdEngimon(RealEngimon w) {
 	int *listId;
 	int j = 0;
 	for (int i = 0; i < ENGIMON_COUNT; i++) {
@@ -510,5 +594,20 @@ int GameState::searchIdEngimon(char _symbol) {
 	}
 	if (j != 0) {
 		return listId[rand() % j];
+	}
+}
+
+int GameState::searchIdWildEngimon(Cell cell) {
+	bool found = false;
+	int i = 0;
+	while(i < MAX_WILD && !found){
+		if (wildEngimons[i].getCoordinate() == cell) {
+			found = true;
+		}
+	}
+	if (found) {
+		return i;
+	} else {
+		throw(Exception(NO_WILD_ENGIMON));
 	}
 }

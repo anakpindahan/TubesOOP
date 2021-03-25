@@ -1,5 +1,5 @@
-#ifndef WILD_ENGIMON_H
-#define WILD_ENGIMON_H
+#ifndef REAL_ENGIMON_H
+#define REAL_ENGIMON_H
 
 #include "Cell.hpp"
 #include "Engimon.hpp"
@@ -7,24 +7,31 @@
 #include <string>
 
 #define CAPITAL_LEVEL 4
+#define WILD_ENGIMON 1
+#define PLAYER_ENGIMON 2
+#define ACTIVE_ENGIMON 3
 
-class WildEngimon : public Engimon{
+
+class RealEngimon : public Engimon{
 	private:
 		Cell coordinate;
 		int level;			
 		int xp;				
 		int cumulXp;		// Total xp engimon sekarang
+		int status;
 		string name;
 		string parentName1;
 		string parentName2;
 		string speciesParent1;
 		string speciesParent2;
 	public:
-		WildEngimon();
-		WildEngimon(int, string, string, int, Cell, int, int, string);
-		WildEngimon(const WildEngimon&);
-		WildEngimon& operator=(const WildEngimon&);
-		~WildEngimon();
+		RealEngimon();
+		RealEngimon(int, int, string, string, int, Cell, int, int, string);
+		RealEngimon(const RealEngimon&);
+		RealEngimon& operator=(const RealEngimon&);
+		~RealEngimon();
+
+		// Getter
 		Cell getCoordinate();
 		int getLevel();
 		int getXp();
@@ -34,22 +41,35 @@ class WildEngimon : public Engimon{
 		string getParentName2();
 		string getSpeciesParent1();
 		string getSpeciesParent2();
+		int getStatus();
+
+		// Setter
 		void setCoordinate(Cell);
 		void setCoordinate(int, int);
 		void setLevel(int);
 		void setXp(int xp);
 		void setCumulXp(int);
 		void setName(string);
+		void setStatus(int);
 		void setParentName1(string);
 		void setParentName2(string);
 		void setSpeciesParent1(string);
 		void setSpeciesParent2(string);
+
+		// Level
 		void xpUp(int);
-		void levelUp(int);			
-		bool isSuitable(Cell);
+		void levelUp(int);
+
+		// Move
 		void setSymbolLevel();
-		WildEngimon breed(WildEngimon);					// Dua metode ini sebenarnya untuk Engimon di inventory
-		bool legalToBreed(WildEngimon, WildEngimon);	// Akan dipindah jika sudah ada
+		bool isSuitable(Cell);
+
+		// Breed
+		RealEngimon breed(RealEngimon);
+		bool legalToBreed(RealEngimon, RealEngimon);
+
+		// Tampilkan info
+		void showStat();
 
 };
 

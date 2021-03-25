@@ -1,10 +1,9 @@
-#include "WildEngimon.h"
-
 #include <cctype>
+#include "RealEngimon.h"
 
 using namespace std;
 
-WildEngimon::WildEngimon() :
+RealEngimon::RealEngimon() :
 		Engimon::Engimon() {
 	coordinate = Cell(5, 6, "Grass", "WEng", 'W');
 	level = 2;
@@ -15,9 +14,10 @@ WildEngimon::WildEngimon() :
 	parentName2 = "Fulanah";
 	speciesParent1 = "-";
 	speciesParent2 = "-";
+	status = WILD_ENGIMON;
 }
 
-WildEngimon::WildEngimon(int _id, string _species, string _slogan, int _maxExp,
+RealEngimon::RealEngimon(int _id, int _status, string _species, string _slogan, int _maxExp,
 		Cell _coordinate, int _level, int _xp, string _name) :
 		Engimon::Engimon(_id, _species, _slogan, _maxExp) {
 	coordinate = _coordinate;
@@ -29,9 +29,10 @@ WildEngimon::WildEngimon(int _id, string _species, string _slogan, int _maxExp,
 	parentName2 = "Fulanah";
 	speciesParent1 = "-";
 	speciesParent2 = "-";
+	status = _status;
 }
 
-WildEngimon::WildEngimon(const WildEngimon& we) {
+RealEngimon::RealEngimon(const RealEngimon& we) : Engimon::Engimon(we) {
 	id = we.id;
 	coordinate = we.coordinate;
 	level = we.level;
@@ -42,9 +43,11 @@ WildEngimon::WildEngimon(const WildEngimon& we) {
 	parentName2 = we.parentName2;
 	speciesParent1 = we.speciesParent1;
 	speciesParent2 = we.speciesParent2;
+	status = we.status;
 }
 
-WildEngimon& WildEngimon::operator=(const WildEngimon& we) {
+RealEngimon& RealEngimon::operator=(const RealEngimon& we){
+	this->id = we.id;
 	this->coordinate = we.coordinate;
 	this->level = we.level;
 	this->xp = we.xp;
@@ -54,93 +57,94 @@ WildEngimon& WildEngimon::operator=(const WildEngimon& we) {
 	this->parentName2 = we.parentName2;
 	this->speciesParent1 = we.speciesParent1;
 	this->speciesParent2 = we.speciesParent2;
+	this->status = we.status;
 	return *this;
 }
 
-WildEngimon::~WildEngimon() {
+RealEngimon::~RealEngimon() {
 
 }
 
-Cell WildEngimon::getCoordinate() {
+Cell RealEngimon::getCoordinate() {
 	return coordinate;
 }
 
-int WildEngimon::getLevel() {
+int RealEngimon::getLevel() {
 	return level;
 }
 
-int WildEngimon::getXp() {
+int RealEngimon::getXp() {
 	return xp;
 }
 
-int WildEngimon::getCumulXp() {
+int RealEngimon::getCumulXp() {
 	return level * 100 + xp;
 }
 
-string WildEngimon::getName() {
+string RealEngimon::getName() {
 	return name;
 }
 
-string WildEngimon::getParentName1() {
+string RealEngimon::getParentName1() {
 	return parentName1;
 }
 
-string WildEngimon::getParentName2() {
+string RealEngimon::getParentName2() {
 	return parentName2;
 }
 
-string WildEngimon::getSpeciesParent1() {
+string RealEngimon::getSpeciesParent1() {
 	return speciesParent1;
 }
 
-string WildEngimon::getSpeciesParent2() {
+string RealEngimon::getSpeciesParent2() {
 	return speciesParent2;
 }
 
-void WildEngimon::setCoordinate(Cell _coordinate) {
+void RealEngimon::setCoordinate(Cell _coordinate) {
 	coordinate = _coordinate;
 }
 
-void WildEngimon::setCoordinate(int _X, int _Y) {
+void RealEngimon::setCoordinate(int _X, int _Y) {
 	coordinate.setX(_X);
 	coordinate.setY(_Y);
 }
 
-void WildEngimon::setLevel(int _level) {
+void RealEngimon::setLevel(int _level) {
 	level = _level;
 }
 
-void WildEngimon::setXp(int _xp) {
+void RealEngimon::setXp(int _xp) {
 	xp = _xp;
 }
 
-void WildEngimon::setName(string _name) {
+void RealEngimon::setName(string _name) {
 	name = _name;
 }
 
-void WildEngimon::setParentName1(string _parentName1) {
+void RealEngimon::setParentName1(string _parentName1) {
 	parentName1 = _parentName1;
 }
 
-void WildEngimon::setParentName2(string _parentName2) {
+void RealEngimon::setParentName2(string _parentName2) {
 	parentName2 = _parentName2;
 }
 
-void WildEngimon::setSpeciesParent1(string _speciesParent1) {
+void RealEngimon::setSpeciesParent1(string _speciesParent1) {
 	speciesParent1 = _speciesParent1;
 }
 
-void WildEngimon::setSpeciesParent2(string _speciesParent2) {
+void RealEngimon::setSpeciesParent2(string _speciesParent2) {
 	speciesParent2 = _speciesParent2;
 }
 
-void WildEngimon::setCumulXp(int _cumulXp) {
+void RealEngimon::setCumulXp(int _cumulXp) {
 	cumulXp = _cumulXp;
 	level = 1 + (cumulXp / 100);
 	xp = cumulXp % 100;
 }
 
-void WildEngimon::xpUp(int dXp) {
+void RealEngimon::xpUp(int dXp) {
 	cumulXp += dXp;
 	if (cumulXp >= maxExp) {
 		delete this;
@@ -153,11 +157,11 @@ void WildEngimon::xpUp(int dXp) {
 
 }
 
-void WildEngimon::levelUp(int dLevel) {
+void RealEngimon::levelUp(int dLevel) {
 	level += dLevel;
 }
 
-bool WildEngimon::isSuitable(Cell c) {
+bool RealEngimon::isSuitable(Cell c) {
 	if (symbol == 'F' || symbol == 'G' || symbol == 'E' || symbol == 'L') {
 		return (c.getType() == "Grass");
 	} else if (symbol == 'W' || symbol == 'I' || symbol == 'S') {
@@ -169,7 +173,7 @@ bool WildEngimon::isSuitable(Cell c) {
 	}
 }
 
-void WildEngimon::setSymbolLevel() {
+void RealEngimon::setSymbolLevel() {
 	if (level >= CAPITAL_LEVEL) {
 		symbol = toupper(symbol);
 	} else {
@@ -177,8 +181,8 @@ void WildEngimon::setSymbolLevel() {
 	}
 }
 
-WildEngimon WildEngimon::breed(WildEngimon w) {
-	WildEngimon child;
+RealEngimon RealEngimon::breed(RealEngimon w) {
+	RealEngimon child;
 	if (legalToBreed(*this, w)) {
 		level -= 30;
 		w.level -= 30;
@@ -195,15 +199,51 @@ WildEngimon WildEngimon::breed(WildEngimon w) {
 	}
 }
 
-bool WildEngimon::legalToBreed(WildEngimon w1, WildEngimon w2) {
+bool RealEngimon::legalToBreed(RealEngimon w1, RealEngimon w2) {
 	if (w1.level >= 30 && w2.level >= 30) {
-		/*if (w1.numElements == 1 && w2.numElements == 1) {
+		if (w1.numElements == 1 && w2.numElements == 1) {
 			return true;
 		} else {
 			return false;
-		}*/
-		return true;
+		}
 	} else {
 		return false;
 	}
+}
+
+int RealEngimon::getStatus() {
+	return status;
+}
+
+void RealEngimon::setStatus(int _status) {
+	this->status = _status;
+}
+
+void RealEngimon::showStat() {
+//	cout << "Nomor Urut" <<
+	cout << "Id: " << id << endl;
+	cout << "Nama: " << name << endl;
+	cout << "Spesies: " << species << endl;
+	cout << "Elemen: ";
+	for(int i = 0; i < numElements; i++){
+		cout << elements[i] << " ";
+	}
+	cout << endl;
+	cout << "Skill: " << endl;
+	priority_queue<Skill> pq = skill;
+	while(!pq.empty()){
+		cout << pq.top() << endl;
+		pq.pop();
+	}
+	cout << "Slogan: " << slogan << endl;
+	cout << "Simbol di peta: " << symbol << endl;
+	cout << "Level: " << level << endl;
+	cout << "Total XP:" << xp << endl;
+	cout << "Ayah: " << endl;
+	cout << "       Nama: " << parentName1 << endl;
+	cout << "       Spesies: " << speciesParent1 << endl;
+	cout << "Ibu:" << endl;
+	cout << "       Nama: " << parentName2 << endl;
+	cout << "       Spesies: " << speciesParent2 << endl;
+	cout << "Xp maksimal: " << maxExp << endl;
 }

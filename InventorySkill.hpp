@@ -1,8 +1,5 @@
-#ifndef INVENTORY_H
-#define INVENTORY_H
-
-//#ifndef INVENTORYSKILL_H
-//#define INVENTORYSKILL_H
+#ifndef INVENTORY_SKILL
+#define INVENTORY_SKILL
 
 #include <iostream>
 #include <iterator>
@@ -12,24 +9,22 @@
 
 using namespace std;
 
-class Inventory {
+class InventorySkill {
 	private:
-		int capacity;
         map<Skill, int> inventorySkill;
-    
+
     public:
-        Inventory();
-        Inventory(int);
-        Inventory& operator=(const Inventory&);
-		virtual ~Inventory();
-        int getMaxCapacity();
-        void setMaxCapacity(int);
-        void printInventory();
+        InventorySkill();
+        InventorySkill(int);
+        InventorySkill& operator=(const InventorySkill&);
+		virtual ~InventorySkill();
+        void printInventorySkill();
         Skill nameToSkill(string);
         void learn(string, string);
         void addItem(string);
         void replaceItem();
         void useItem(string);
+        int numOfElement();
 };
 
 #endif

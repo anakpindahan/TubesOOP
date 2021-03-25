@@ -3,35 +3,29 @@
 #include <map>
 #include "InventorySkill.hpp"
 #include "Engimon.hpp"
+#include "Skill.hpp"
 
 using namespace std;
 
-Inventory::Inventory() {
-    this->capacity = 30;
+InventorySkill::InventorySkill() {}
+
+InventorySkill& InventorySkill::operator=(const InventorySkill& other) {
+    InventorySkill *x = new InventorySkill();
+    x->inventorySkill = other.inventorySkill;
+    return x;
 }
-Inventory::Inventory(int c) {
-    this->capacity = c;
+InventorySkill::~InventorySkill() {}
+
+int InventorySkill::numOfElement(){
+    return this->inventorySkill.size();
 }
-Inventory& Inventory::operator=(const Inventory& other) {
-    this->capacity = other.capacity;
-    this->inventorySkill = other.inventorySkill;
-}
-Inventory::~Inventory() {
-    
-}
-int Inventory::getMaxCapacity() {
-    return this->capacity;
-}
-void Inventory::setMaxCapacity(int c) {
-    this->capacity = c;
-}
-void Inventory::printInventory() {
+
+void InventorySkill::printInventorySkill() {
     map<Skill, int>::iterator itr;
     int menu = -1;
     string E, S;
 
     cout << "~~ Inventory ~~ " << endl;
-    cout << "Kapasitas maksimum : " << this->capacity << endl;
 
     while (menu != 0) {
         cout << "Menu inventory : " << endl;
@@ -62,15 +56,8 @@ void Inventory::printInventory() {
 
 }
 
-Skill Inventory::nameToSkill(string s) {
-    for(auto elem : inventorySkill ) {
-        if (elem.first.getNamaSkill() == s) {
-            return elem.first;
-        }
-    }
-}
 
-void Inventory::learn(string E, string S) {
+void InventorySkill::learn(string E, string S) {
     // convert nama ke datatype skill
     Skill _S = this->nameToSkill(S);
     // convert nama ke datatype engimon
@@ -95,7 +82,8 @@ void Inventory::learn(string E, string S) {
         }
     }
 }
-void Inventory::addItem(string s) {
+
+void InventorySkill::addItem(string s) {
     if (inventorySkill.size() < capacity) {
         Skill _S = this->nameToSkill(s);
 
@@ -111,10 +99,10 @@ void Inventory::addItem(string s) {
         }
     }
 }
-void Inventory::replaceItem() {
+void InventorySkill::replaceItem() {
     
 }
-void Inventory::useItem(string s) {
+void InventorySkill::useItem(string s) {
     for(auto elem : inventorySkill ) {
         if (elem.first.getNamaSkill() == s) {
             elem.second --;

@@ -7,7 +7,7 @@
 
 #ifndef EXCEPTION_HPP_
 #define EXCEPTION_HPP_
-#define EXCEPTION_POSSIBLE 6
+#define EXCEPTION_POSSIBLE 7
 
 #include <iostream>
 #include <cstring>
@@ -19,6 +19,7 @@ const int UNSUITABLE_BREED = 2;
 const int OCCUPIED_CELL = 3;
 const int WRONG_COMMAND = 4;
 const int EXIT_COMMAND = 5;
+const int NO_WILD_ENGIMON = 6;
 
 class Exception {
 public:

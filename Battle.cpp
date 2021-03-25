@@ -3,7 +3,7 @@
 #include "Battle.hpp"
 using namespace std;
 //BATTLE DI TARO DI PLAYER, MAXXP
-Battle::Battle() : WildEngimon::WildEngimon(){
+Battle::Battle() : RealEngimon::RealEngimon(){
 	totalPower = 0;
 	elementAdvPlayer = 0;
 	elementAdvEnemy = 0;
@@ -18,12 +18,17 @@ int Battle::sum(int num){
 	}
 }
 
-int Battle::TotalPower(WildEngimon w, int elementAdv, Skill s){
+int Battle::TotalPower(RealEngimon w, int elementAdv, Skill s){
 	return w.getLevel() * elementAdv + sum(s.getBasePower() * s.getMasteryLevel());
 }
 
-void Battle::showTotalPower(int total){
-	cout << "Total Power : " << total << endl;
+void Battle::showTotalPower(int total, int tag){
+	if(tag == 0){ /* Player */
+		cout << "My Total Power\t: " << total << endl;
+	}
+	else if(tag == 1){
+		cout << "Enemy Total Power\t: " << total << endl;
+	}
 }
 
 void Battle::elementAdv1(Engimon e1, Engimon e2){
@@ -35,7 +40,6 @@ void Battle::elementAdv1(Engimon e1, Engimon e2){
 								
 	if (e1.getNumElements() == 1 || e2.getNumElements() == 1){
 		int elementAdv, i, j;
-		
 		if (e1.getElement(e1.getNumElements()) == "Fire"){i = 0;}
 		else if (e1.getElement(e1.getNumElements()) == "Water"){i = 1;}
 		else if (e1.getElement(e1.getNumElements()) == "Electric"){i = 2;}
@@ -55,7 +59,7 @@ void Battle::elementAdv1(Engimon e1, Engimon e2){
 	// yg 2 elemen belommm
 }
 
-void Battle::tanding(WildEngimon w1, WildEngimon w2, Skill s1, Skill s2){
+void Battle::tanding(RealEngimon w1, RealEngimon w2, Skill s1, Skill s2){
 	int totalPowerPlayer, totalPowerEnemy;
 	
 	// Hitung total power level
@@ -63,11 +67,11 @@ void Battle::tanding(WildEngimon w1, WildEngimon w2, Skill s1, Skill s2){
 	totalPowerEnemy = TotalPower(w2, elementAdvPlayer, s2);
 	
 	//Tampilkan total power Level
-	showTotalPower(totalPowerPlayer);
-	showTotalPower(totalPowerEnemy);
+	showTotalPower(totalPowerPlayer,0);
+	showTotalPower(totalPowerEnemy,1);
 	
 	if (totalPowerPlayer < totalPowerEnemy){
-		cout << "Kamu Mati" << endl;
+		cout << "you lose" << endl;
 	}
 	else{
 		//tambah ke inventory

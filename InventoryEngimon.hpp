@@ -2,9 +2,11 @@
 #define INVENTORY_ENGIMON
 
 #include "Engimon.hpp"
-#include "Player.h"
 #include <vector>
+#include <iostream>
+#include <iterator>
 
+using namespace std;
 
 template <class T>
 class InventoryEngimon{

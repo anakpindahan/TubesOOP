@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iterator>
 #include <map>
-#include "Inventory.hpp"
+#include "InventorySkill.hpp"
 #include "Engimon.hpp"
 
 using namespace std;

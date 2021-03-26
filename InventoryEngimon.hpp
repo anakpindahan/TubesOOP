@@ -21,6 +21,7 @@ public:
     void deleteEngimon(int);
     T changeEngimon(T engimonInput, int offsetTarget);
     T getEngimon(int);
+    void showNameEngimonContents();
 };
 
 #endif

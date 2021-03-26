@@ -54,6 +54,8 @@ class GameState{
 		int searchIdEngimon(RealEngimon);
 		int searchIdEngimon(char);
 		int searchIdWildEngimon(Cell);
+		static Skill generateSkill(Engimon);
+		Skill searchSkill(string);
 };
 
 #endif

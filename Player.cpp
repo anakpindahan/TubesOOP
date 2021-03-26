@@ -48,6 +48,17 @@ InventoryEngimon<RealEngimon>& Player::getInventoryEngimon(){
 	return inventoryEngimon;
 }
 
+InventorySkill& Player::getInventorySkill(){
+	return inventorySkill;
+}
+
 void Player::addEngimon(RealEngimon e){
 	inventoryEngimon.putIn(e);
+}
+
+void Player::addSkill(string skill){
+	this->inventorySkill.addItem(skill);
+}
+void Player::useSkill(string skillname){
+	this->inventorySkill.useItem(skillname);
 }

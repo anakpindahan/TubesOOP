@@ -17,3 +17,11 @@ sebetulnya mau nanya, battle perlu ditambahin ke diagram kah ?
 battle ada depend / aggre ga ? / inherit. Jadi pake garis yg kosong (tanpa panah / diamond) ? tapi ke siapa garisnya
 1. Hitung advantage chart. Advantage chart iya, misalnya air vs air dia dapatat "1".
 2.  iyaa,, ke player(eh player sih ini) dan wildEngimon, state game termasuk kah ? ada 
+
+tanya dong :
+ini knp di inventoryskill.cpp "Type skill could not be resolved" ya
+pdhl udh include dan di vscode gue aman2 aja.
+
+// Kevin :
+// AKu ngerjainnya di lokal dlu aja yaa..
+// Afifah : aku juga ya wkwk bingung

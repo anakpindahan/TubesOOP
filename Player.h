@@ -4,6 +4,7 @@
 #include "Cell.hpp"
 #include "Engimon.hpp"
 #include "InventoryEngimon.hpp"
+#include "InventorySkill.hpp"
 
 class Player{
 	private:
@@ -11,6 +12,7 @@ class Player{
 		Cell coordinate;
 		char currSymbol;
 		InventoryEngimon<RealEngimon> inventoryEngimon;
+		InventorySkill inventorySkill;
 
 	public:
 		Player();
@@ -24,7 +26,9 @@ class Player{
 		void setCurrSymbol(char);
 		void setEngimon(RealEngimon);
 		void addEngimon(RealEngimon);
-
+		void addSkill(string);
+		void useSkill(string);
+		InventorySkill& getInventorySkill();
 };
 
 #endif

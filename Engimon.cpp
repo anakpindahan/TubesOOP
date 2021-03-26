@@ -158,48 +158,101 @@ priority_queue<Skill> Engimon::getSkill() {
 	return skill;
 }
 
+int Engimon::hasSkill(priority_queue<Skill> p, Skill s) {
+	bool found = false;
+	priority_queue<Skill> q = p;
+	while (!q.empty() && !found) {
+		if (q.top().getNamaSkill() == s.getNamaSkill()) {
+			found = true;
+			if (q.top() > s) {
+				return 1;
+			} else if (q.top() == s) {
+				return 2;
+			} else if (q.top() < s) {
+				return 3;
+			}
+		}
+		q.pop();
+	}
+	if (!found) {
+		return 0;
+	}
+}
+
+void Engimon::removeSkill(string _skill){
+	if(hasSkill(skill, Skill(_skill, 100, 1)) == 0){
+		throw(Exception(NO_SKILL));
+	} else {
+		bool found = false;
+		priority_queue<Skill> temp;
+		while(!found){
+			if(skill.top().getNamaSkill() == _skill){
+				skill.pop();
+				found = true;
+			} else {
+				temp.push(skill.top());
+				skill.pop();
+			}
+		}
+		while(!temp.empty()){
+			skill.push(temp.top());
+			temp.pop();
+		}
+
+	}
+}
+
 void Engimon::inheritSkill(Engimon e1, Engimon e2) {
 	priority_queue<Skill> p1;
 	priority_queue<Skill> p2;
 	p1 = e1.skill;
 	p2 = e2.skill;
-	while (skill.size() < MAX_SKILL && p1.size() > 0 && p2.size()) {
+	while (skill.size() < MAX_SKILL && p1.size() > 0 && p2.size() > 0) {
 		Skill s1 = p1.top();
 		Skill s2 = p2.top();
 		if (s1 < s2) {
-			if (s2.canUsedBy(elements[0])
-					|| s2.canUsedBy(elements[1])) {
-				skill.push(s2);
+			if (s2.canUsedBy(elements[0]) || s2.canUsedBy(elements[1])) {
+				if (hasSkill(skill, s2) == 0 && hasSkill(p1, s2) == 2) {
+					s2.addMasteryLevel(1);
+					skill.push(s2);
+				} else if (hasSkill(skill, s2) == 0) {
+					skill.push(s2);
+				}
 			}
 			p2.pop();
 		} else {
-			if (s1.canUsedBy(elements[0])
-					|| s1.canUsedBy(elements[1])) {
-				skill.push(s1);
+			if (s1.canUsedBy(elements[0]) || s1.canUsedBy(elements[1])) {
+				if (hasSkill(skill, s1) == 0 && hasSkill(p2, s1) == 2) {
+					s1.addMasteryLevel(1);
+					skill.push(s1);
+				} else if (hasSkill(skill, s1) == 0) {
+					skill.push(s1);
+				}
 			}
 			p1.pop();
 		}
 	}
-	while (skill.size() < MAX_SKILL && (p1.size() > 0 || p2.size())) {
+	while (skill.size() < MAX_SKILL && (p1.size() > 0 || p2.size() > 0)) {
 		if (p1.size() > 0) {
 			Skill s1 = p1.top();
-			if (s1.canUsedBy(elements[0])
-					|| s1.canUsedBy(elements[1])) {
-				skill.push(s1);
+			if (s1.canUsedBy(elements[0]) || s1.canUsedBy(elements[1])) {
+				if (hasSkill(skill, s1) == 0) {
+					skill.push(s1);
+				}
 			}
 			p1.pop();
 		} else {
 			Skill s2 = p2.top();
-			if (s2.canUsedBy(elements[0])
-					|| s2.canUsedBy(elements[1])) {
-				skill.push(s2);
+			if (s2.canUsedBy(elements[0]) || s2.canUsedBy(elements[1])) {
+				if (hasSkill(skill, s2) == 0) {
+					skill.push(s2);
+				}
 			}
 			p2.pop();
 		}
 	}
 
 	numSkill = skill.size();
-
 }
 
 void Engimon::inheritElement(Engimon e1, Engimon e2) {
@@ -248,10 +301,26 @@ void Engimon::inheritElement(Engimon e1, Engimon e2) {
 	}
 }
 
-int Engimon::getNumElements(){
+int Engimon::getNumElements() {
 	return numElements;
 }
 
-int Engimon::getNumSkill(){
-	return numSkill;
+int Engimon::getNumSkill() {
+	return skill.size();
+}
+
+void Engimon::setId(int id) {
+	this->id = id;
+}
+
+void Engimon::setMaxExp(int maxExp) {
+	this->maxExp = maxExp;
+}
+
+void Engimon::setSlogan(string _slogan) {
+	slogan = _slogan;
+}
+
+void Engimon::setSpecies(const string& species) {
+	this->species = species;
 }

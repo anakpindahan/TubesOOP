@@ -29,6 +29,10 @@ class Engimon{
 		~Engimon();
 		int getId();
 		priority_queue<Skill> getSkill();
+		int hasSkill(priority_queue<Skill>, Skill);		// Return 0 kalau engimon tidak punya skill tsb
+									// 1 kalau mastery levelnya >
+									// 2 kalau sama
+									// 3 kalau <
 		string getElement(int);
 		string getSlogan();
 		char getSymbol(); 
@@ -39,10 +43,15 @@ class Engimon{
 		void setSymbol(char);
 		bool isSameType(Engimon);
 		void addSkill(Skill);
+		void removeSkill(string);
 		void inheritSkill(Engimon, Engimon);		// Mewariskan skill yang sesuai dari orangtua
 		void inheritElement(Engimon, Engimon);
 		int getNumElements();
 		int getNumSkill();
+		void setId(int id);
+		void setMaxExp(int maxExp);
+		void setSlogan(string);
+		void setSpecies(const string& species);
 };
 
 #endif

@@ -18,7 +18,8 @@ string Exception::errorMessage[EXCEPTION_POSSIBLE] = {
 		"Kedua engimon ini tidak dapat dikawinkan", "Cell ini sudah ditempati",
 		"Command yang dimasukkan tidak ada",
 		"Terima kasih sudah bermain Engimon~",
-		"Tidak ada engimon liar di posisi ini" };
+		"Tidak ada engimon liar di posisi ini",
+		"Engimon tidak punya skill tersebut"};
 
 Exception::Exception(int x) :
 		errorNumber(x) {

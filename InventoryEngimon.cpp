@@ -41,4 +41,12 @@ T InventoryEngimon<T>::getEngimon(int i){
 	return this->listEngimon.at(i - 1);
 }
 
+template <class T>
+void InventoryEngimon<T>::showNameEngimonContents(){
+    for (int i = 1; i <= numOfElement(); i++){
+        cout << i << ". "<< this->getEngimon(i).getName() << endl ;
+    }
+}
+
+
 template class InventoryEngimon<RealEngimon>;

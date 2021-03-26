@@ -33,7 +33,6 @@ RealEngimon::RealEngimon(int _id, int _status, string _species, string _slogan, 
 }
 
 RealEngimon::RealEngimon(const RealEngimon& we) : Engimon::Engimon(we) {
-	id = we.id;
 	coordinate = we.coordinate;
 	level = we.level;
 	xp = we.xp;
@@ -48,6 +47,9 @@ RealEngimon::RealEngimon(const RealEngimon& we) : Engimon::Engimon(we) {
 
 RealEngimon& RealEngimon::operator=(const RealEngimon& we){
 	this->id = we.id;
+	this->species = we.species;
+	this->slogan = we.slogan;
+	this->maxExp = we.maxExp;
 	this->coordinate = we.coordinate;
 	this->level = we.level;
 	this->xp = we.xp;
@@ -58,6 +60,8 @@ RealEngimon& RealEngimon::operator=(const RealEngimon& we){
 	this->speciesParent1 = we.speciesParent1;
 	this->speciesParent2 = we.speciesParent2;
 	this->status = we.status;
+	this->setSymbol();
+	this->Engimon::operator=(we);
 	return *this;
 }
 
@@ -186,13 +190,19 @@ RealEngimon RealEngimon::breed(RealEngimon w) {
 	if (legalToBreed(*this, w)) {
 		level -= 30;
 		w.level -= 30;
-		child.inheritElement(*this, w);
-		child.inheritSkill(*this, w);
 		child.setCumulXp(0);
 		child.setParentName1(name);
 		child.setParentName2(w.name);
 		child.setSpeciesParent1(species);
 		child.setSpeciesParent2(w.species);
+		if(species == w.species){
+			child.id = id;
+			child.species = species;
+			child.slogan = slogan;
+			child.symbol = symbol;
+		}
+		child.inheritElement(*this, w);
+		child.inheritSkill(*this, w);
 		return child;
 	} else {
 		throw(Exception(UNSUITABLE_BREED));
@@ -200,7 +210,7 @@ RealEngimon RealEngimon::breed(RealEngimon w) {
 }
 
 bool RealEngimon::legalToBreed(RealEngimon w1, RealEngimon w2) {
-	if (w1.level >= 30 && w2.level >= 30) {
+	if (w1.level > 30 && w2.level > 30) {
 		if (w1.numElements == 1 && w2.numElements == 1) {
 			return true;
 		} else {
@@ -224,6 +234,7 @@ void RealEngimon::showStat() {
 	cout << "Id: " << id << endl;
 	cout << "Nama: " << name << endl;
 	cout << "Spesies: " << species << endl;
+	cout << "Banyak elemen: " << numElements << endl;
 	cout << "Elemen: ";
 	for(int i = 0; i < numElements; i++){
 		cout << elements[i] << " ";
@@ -238,7 +249,8 @@ void RealEngimon::showStat() {
 	cout << "Slogan: " << slogan << endl;
 	cout << "Simbol di peta: " << symbol << endl;
 	cout << "Level: " << level << endl;
-	cout << "Total XP:" << xp << endl;
+	cout << "XP:" << xp << endl;
+	cout << "Total XP:" << cumulXp << endl;
 	cout << "Ayah: " << endl;
 	cout << "       Nama: " << parentName1 << endl;
 	cout << "       Spesies: " << speciesParent1 << endl;

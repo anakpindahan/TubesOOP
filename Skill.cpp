@@ -50,7 +50,7 @@ Skill& Skill::operator=(const Skill& s){
 }
 
 Skill::~Skill(){
-	delete[] skillElements;
+
 }
 
 string Skill::getNamaSkill() const{
@@ -75,11 +75,8 @@ void Skill::setNamaSkill(string nama){
 }
 
 void Skill::addSkillElements(string element){ //asumsi element skill yang ada di file eksternal tidak lebih dari 5.
-	int i = 0;
-	while (skillElements[i] != "noElement"){
-		i++;
-	}
-	skillElements[i] = element;
+	skillElements[numSkill] = element;
+	numSkill++;
 }
 
 void Skill::setBasePower(int BP){

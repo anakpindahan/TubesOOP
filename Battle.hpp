@@ -5,10 +5,12 @@
 #include "Skill.hpp"
 #include "Engimon.hpp"
 #include "RealEngimon.h"
+#include "Player.h"
+#include "GameState.h"
 
 using namespace std;
 
-class Battle : public RealEngimon{
+class Battle{
     private:
         int totalPower;
         int elementAdvPlayer;
@@ -20,8 +22,7 @@ class Battle : public RealEngimon{
 		int TotalPower(RealEngimon, int, Skill);
 		void showTotalPower(int,int);
 		void elementAdv1(Engimon, Engimon);
-		void tanding(RealEngimon, RealEngimon, Skill, Skill);
-        
+		void tanding(Player&,int, RealEngimon, Skill, Skill);
 };
 
 #endif

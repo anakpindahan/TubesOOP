@@ -12,17 +12,16 @@ using namespace std;
 class InventorySkill {
 	private:
         map<Skill, int> inventorySkill;
-
     public:
         InventorySkill();
         InventorySkill(int);
-        InventorySkill& operator=(const InventorySkill&);
+        //InventorySkill& operator=(const InventorySkill&);
 		virtual ~InventorySkill();
         void printInventorySkill();
         Skill nameToSkill(string);
         void learn(string, string);
         void addItem(string);
-        void replaceItem();
+        void replaceSkill(Engimon, Skill);
         void useItem(string);
         int numOfElement();
 };

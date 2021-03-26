@@ -435,11 +435,10 @@ string GameState::readCommand() {
 	cout << "2. Breed (mengawinkan engimon)" << endl;
 	cout << "3. Stat (melihat data dari engimon yang dipunyai)" << endl;
 	cout << "4. Switch (mengganti active engimon)" << endl;
-	cout << "5. ShowSkillItem (melihat skill item yang ada)" << endl;
-	cout << "6. UseSkillItem (menggunakan skill item yang ada)" << endl;
-	cout << "7. Battle (bertarung dengan wild engimon yang ada)" << endl;
-	cout << "8. Interact (berinteraksi dengan active engimon)" << endl;
-	cout << "9. Exit (untuk keluar dari permainan)" << endl;
+	cout << "5. SkillItem (melihat dan mengatur skill item yang ada)" << endl;
+	cout << "6. Battle (bertarung dengan wild engimon yang ada)" << endl;
+	cout << "7. Interact (berinteraksi dengan active engimon)" << endl;
+	cout << "8. Exit (untuk keluar dari permainan)" << endl;
 	cout << "Command yang ingin dilakukan:";
 	cin >> _command;
 	return _command;
@@ -464,8 +463,6 @@ void GameState::executeCommand(string _command) {
 		}
 	} else if(_command == "Battle"){
 		battlePlayerEngimon();
-	} else if(_command == "ShowSkillItem") {
-		player.getInventorySkill().printInventorySkill();
 	} else if(_command == "Interact"){
 		player.interact();
 	} else if(_command == "Switch") {
@@ -473,7 +470,9 @@ void GameState::executeCommand(string _command) {
 		int i;
 		cin >> i;
 		player.setActiveEngimon(i);
-	} else if(_command == "Exit") {
+	} else if(_command == "SkillItem"){
+		player.getInventorySkill().printInventorySkill();
+	} else if(_command == "Exit"){
 		throw(Exception(EXIT_COMMAND));
 	} else {
 		throw(Exception(WRONG_COMMAND));

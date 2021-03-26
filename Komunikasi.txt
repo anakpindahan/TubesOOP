@@ -20,9 +20,4 @@ battle ada depend / aggre ga ? / inherit. Jadi pake garis yg kosong (tanpa panah
 
 tanya dong :
 ini knp di inventoryskill.cpp "Type skill could not be resolved" ya
-pdhl udh include dan di vscode gue aman2 aja. 
-
-// Kevin :
-// AKu ngerjainnya di lokal dlu aja yaa..
-// Afifah : aku juga ya wkwk bingung
 

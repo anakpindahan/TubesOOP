@@ -102,6 +102,7 @@ void Battle::tanding(Player& w1,int numEngimon, RealEngimon w2, Skill s1, Skill 
 
 		// Menambahkan Engimon hadiah
 		w2.setStatus(PLAYER_ENGIMON);
+
 		w1.addEngimon(w2);
 		cout << "## Engimon Reward \t>>> " << w2.getSpecies() << endl;
 
